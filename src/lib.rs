@@ -1184,7 +1184,7 @@ fn kafka_client_config_from_options(opts: &IngestOptions) -> ClientConfig {
         }
     }
     kafka_client_config
-        .set("bootstrap.servers", opts.kafka_brokers.clone())
+        .set("bootstrap.servers", opts.kafka_brokers.clone().split(';').collect::<Vec<_>>().join(","))
         .set("group.id", opts.consumer_group_id.clone())
         .set("enable.auto.commit", "false");
 
